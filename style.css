@@ -10,14 +10,16 @@ body {
   font-family: Arial, sans-serif;
 
   background:
-    linear-gradient(
-      135deg,
-      #061b3a,
-      #0b3d70,
-      #082c57
+    radial-gradient(
+      circle at top,
+      #0a2342 0%,
+      #041426 45%,
+      #020914 100%
     );
 
-  color: white;
+  background-attachment: fixed;
+
+  color: #ffffff;
 }
 
 
@@ -39,8 +41,10 @@ h1 {
 
   font-size: 42px;
 
+  color: #ffffff;
+
   text-shadow:
-    0 0 15px rgba(255, 255, 255, 0.2);
+    0 0 20px rgba(72, 156, 255, 0.4);
 }
 
 
@@ -55,11 +59,19 @@ h1 {
 
   padding: 25px;
 
-  background: rgba(10, 35, 70, 0.8);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(8, 30, 58, 0.95),
+      rgba(3, 15, 32, 0.95)
+    );
 
-  border: 2px solid white;
+  border: 1px solid rgba(255, 255, 255, 0.85);
 
   border-radius: 15px;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.45);
 
   margin-bottom: 35px;
 }
@@ -71,23 +83,36 @@ textarea {
 
   padding: 15px;
 
-  border: 2px solid white;
+  border: 1px solid rgba(255, 255, 255, 0.8);
 
-  border-radius: 10px;
+  border-radius: 8px;
 
-  background: #0d3563;
+  background: #061a31;
 
   color: white;
 
   font-size: 16px;
 
   outline: none;
+
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+
+input:focus,
+textarea:focus {
+  border-color: #67b7ff;
+
+  box-shadow:
+    0 0 12px rgba(74, 159, 255, 0.3);
 }
 
 
 input::placeholder,
 textarea::placeholder {
-  color: #b7cce6;
+  color: #7892ae;
 }
 
 
@@ -101,11 +126,16 @@ textarea {
 button {
   padding: 14px;
 
-  border: 2px solid white;
+  border: 1px solid rgba(255, 255, 255, 0.9);
 
-  border-radius: 10px;
+  border-radius: 8px;
 
-  background: #1769aa;
+  background:
+    linear-gradient(
+      180deg,
+      #174f82,
+      #0a3157
+    );
 
   color: white;
 
@@ -115,14 +145,25 @@ button {
 
   cursor: pointer;
 
-  transition: 0.2s;
+  transition:
+    transform 0.2s,
+    background 0.2s,
+    box-shadow 0.2s;
 }
 
 
 button:hover {
-  background: #2584cf;
+  background:
+    linear-gradient(
+      180deg,
+      #236da8,
+      #10446f
+    );
 
   transform: translateY(-2px);
+
+  box-shadow:
+    0 5px 15px rgba(40, 130, 220, 0.25);
 }
 
 
@@ -134,13 +175,15 @@ button:hover {
 
 
 .tasks-section h2 {
-  margin: 0 0 15px;
+  margin: 0 0 12px;
 
-  padding-left: 5px;
+  padding-left: 8px;
 
   text-align: left;
 
   font-size: 24px;
+
+  color: #d9ecff;
 }
 
 
@@ -151,11 +194,19 @@ button:hover {
 
   padding: 15px;
 
-  background: rgba(5, 25, 55, 0.7);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(5, 22, 43, 0.95),
+      rgba(2, 11, 24, 0.95)
+    );
 
-  border: 2px solid white;
+  border: 1px solid rgba(255, 255, 255, 0.8);
 
   border-radius: 15px;
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.35);
 }
 
 
@@ -174,13 +225,23 @@ button:hover {
 
   margin-bottom: 12px;
 
-  background: #114b82;
+  background:
+    linear-gradient(
+      135deg,
+      #0b3159,
+      #061d36
+    );
 
-  border: 2px solid white;
+  border: 1px solid rgba(255, 255, 255, 0.85);
 
-  border-radius: 12px;
+  border-radius: 10px;
 
-  transition: 0.2s;
+  box-shadow:
+    0 5px 15px rgba(0, 0, 0, 0.25);
+
+  transition:
+    transform 0.2s,
+    border-color 0.2s;
 }
 
 
@@ -190,12 +251,16 @@ button:hover {
 
 
 .task:hover {
-  transform: scale(1.01);
+  transform: translateY(-2px);
+
+  border-color: #73bfff;
 }
 
 
 .task-info {
   flex: 1;
+
+  min-width: 0;
 }
 
 
@@ -207,13 +272,15 @@ button:hover {
   font-weight: bold;
 
   margin-bottom: 8px;
+
+  color: #ffffff;
 }
 
 
 .task-description {
-  color: #d0e4f7;
+  color: #aac2d9;
 
-  line-height: 1.4;
+  line-height: 1.5;
 
   white-space: pre-wrap;
 }
@@ -222,35 +289,57 @@ button:hover {
 /* Галочка */
 
 .task-checkbox {
-  width: 26px;
+  width: 24px;
 
-  height: 26px;
+  height: 24px;
 
   flex-shrink: 0;
 
   cursor: pointer;
 
-  accent-color: #ffffff;
+  accent-color: #5caeff;
 
   margin-top: 2px;
 }
 
 
-/* Виконані */
+/* Виконані завдання */
 
 .completed-section .task {
-  opacity: 0.7;
+  opacity: 0.65;
 
-  background: #173f66;
+  background:
+    linear-gradient(
+      135deg,
+      #0a2847,
+      #05182b
+    );
 }
 
 
 .completed-section .task-title {
   text-decoration: line-through;
+
+  color: #b7cce0;
 }
 
 
-/* Steam-like achievement */
+/* Порожній список */
+
+.empty-text {
+  text-align: center;
+
+  color: #69849e;
+
+  margin: 10px 0;
+
+  font-style: italic;
+}
+
+
+/* =========================
+   ACHIEVEMENT
+========================= */
 
 .achievement {
   position: fixed;
@@ -259,37 +348,41 @@ button:hover {
 
   bottom: 25px;
 
-  width: 360px;
+  width: 390px;
 
   display: flex;
 
   align-items: center;
 
-  gap: 15px;
+  gap: 16px;
 
-  padding: 15px;
+  padding: 14px;
 
   background:
     linear-gradient(
-      90deg,
-      #071526,
-      #123d65
+      135deg,
+      #020912,
+      #071c31 55%,
+      #0a3155
     );
 
-  border: 2px solid white;
+  border: 1px solid rgba(255, 255, 255, 0.9);
 
-  border-radius: 8px;
+  border-radius: 5px;
 
   box-shadow:
-    0 0 25px rgba(0, 0, 0, 0.6);
+    0 0 35px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(40, 130, 220, 0.15);
 
   transform: translateX(450px);
 
   opacity: 0;
 
+  pointer-events: none;
+
   transition:
-    transform 0.5s ease,
-    opacity 0.5s ease;
+    transform 0.45s ease,
+    opacity 0.45s ease;
 
   z-index: 1000;
 }
@@ -305,44 +398,66 @@ button:hover {
 /* Картинка ачівки */
 
 .achievement img {
-  width: 70px;
+  width: 76px;
 
-  height: 70px;
+  height: 76px;
 
   object-fit: contain;
 
   flex-shrink: 0;
 
-  border: 1px solid white;
+  border: 1px solid rgba(255, 255, 255, 0.8);
 
-  border-radius: 5px;
+  border-radius: 4px;
 
-  background: #000;
+  background: #02060b;
+
+  padding: 3px;
 }
 
+
+/* Текст */
 
 .achievement-text {
   display: flex;
 
   flex-direction: column;
 
-  gap: 6px;
+  gap: 7px;
+
+  min-width: 0;
 }
 
 
-.achievement-small {
-  color: #6cc5ff;
+.achievement-title {
+  color: #ffffff;
 
-  font-size: 12px;
+  font-size: 19px;
 
   font-weight: bold;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
 }
 
 
-#achievementTitle {
-  font-size: 18px;
+.achievement-description {
+  color: #76bfff;
 
-  font-weight: bold;
+  font-size: 14px;
+
+  line-height: 1.4;
+
+  overflow: hidden;
+
+  display: -webkit-box;
+
+  -webkit-line-clamp: 2;
+
+  -webkit-box-orient: vertical;
 }
 
 
@@ -375,14 +490,4 @@ button:hover {
     transform: translateY(0);
   }
 
-}
-
-.empty-text {
-  text-align: center;
-
-  color: #b7cce6;
-
-  margin: 10px 0;
-
-  font-style: italic;
 }

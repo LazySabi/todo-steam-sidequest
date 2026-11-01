@@ -18,11 +18,16 @@ const achievementImage =
 const achievementTitle =
   document.querySelector("#achievementTitle");
 
+const achievementDescription =
+  document.querySelector("#achievementDescription");
+
 const achievementSound =
   document.querySelector("#achievementSound");
 
 
-// Картинки, які випадково вибираються
+/* =========================
+   КАРТИНКИ АЧІВОК
+========================= */
 
 const achievementImages = [
   "images/achievement1.png",
@@ -32,13 +37,35 @@ const achievementImages = [
 ];
 
 
-// Завантажуємо завдання
+/*
+  Зберігаємо останню картинку,
+  щоб одна й та сама не випадала
+  два рази поспіль
+*/
+
+let lastAchievementImage = null;
+
+
+/*
+  Тут буде зберігатися таймер.
+
+  Це виправляє проблему, коли
+  старий setTimeout() ховає
+  нову ачівку.
+*/
+
+let achievementTimeout = null;
+
+
+/* =========================
+   ЗАВДАННЯ
+========================= */
 
 let tasks =
   JSON.parse(localStorage.getItem("tasks")) || [];
 
 
-// Зберегти завдання
+/* Зберегти */
 
 function saveTasks() {
 
@@ -50,7 +77,28 @@ function saveTasks() {
 }
 
 
-// Створити завдання
+/* Перше речення опису */
+
+function getFirstSentence(description) {
+
+  if (!description) {
+    return "Завдання успішно виконано!";
+  }
+
+
+  const firstSentence =
+    description
+      .trim()
+      .split(/[.!?]/)[0]
+      .trim();
+
+
+  return firstSentence || description;
+
+}
+
+
+/* Створити HTML завдання */
 
 function createTaskElement(task) {
 
@@ -133,7 +181,9 @@ function createTaskElement(task) {
 }
 
 
-// Відобразити всі завдання
+/* =========================
+   ВІДОБРАЖЕННЯ ЗАВДАНЬ
+========================= */
 
 function renderTasks() {
 
@@ -172,8 +222,6 @@ function renderTasks() {
   });
 
 
-  // Повідомлення, якщо список порожній
-
   if (activeTasks.length === 0) {
 
     activeTasksContainer.innerHTML =
@@ -196,7 +244,9 @@ function renderTasks() {
 }
 
 
-// Додати нове завдання
+/* =========================
+   ДОДАВАННЯ ЗАВДАННЯ
+========================= */
 
 function addTask() {
 
@@ -247,33 +297,142 @@ function addTask() {
 }
 
 
-// Steam achievement
+addTaskButton.addEventListener(
+  "click",
+  addTask
+);
 
-function showAchievement(task) {
 
-  // Вибираємо випадкову картинку
+/* Enter додає завдання */
+
+taskTitleInput.addEventListener(
+  "keydown",
+  event => {
+
+    if (event.key === "Enter") {
+
+      addTask();
+
+    }
+
+  }
+);
+
+
+/* =========================
+   ВИПАДКОВА КАРТИНКА
+========================= */
+
+function getRandomAchievementImage() {
+
+  /*
+    Якщо картинка лише одна
+  */
+
+  if (achievementImages.length === 1) {
+
+    return achievementImages[0];
+
+  }
+
+
+  /*
+    Створюємо список без
+    попередньої картинки
+  */
+
+  const availableImages =
+    achievementImages.filter(
+      image =>
+        image !== lastAchievementImage
+    );
+
 
   const randomIndex =
     Math.floor(
       Math.random()
-      * achievementImages.length
+      * availableImages.length
     );
 
 
-  achievementImage.src =
-    achievementImages[randomIndex];
+  const selectedImage =
+    availableImages[randomIndex];
 
+
+  lastAchievementImage =
+    selectedImage;
+
+
+  return selectedImage;
+
+}
+
+
+/* =========================
+   ACHIEVEMENT
+========================= */
+
+function showAchievement(task) {
+
+
+  /*
+    ЗУПИНЯЄМО старий таймер.
+
+    Це важливо:
+    стара ачівка більше не зможе
+    сховати нову.
+  */
+
+  if (achievementTimeout) {
+
+    clearTimeout(
+      achievementTimeout
+    );
+
+  }
+
+
+  /*
+    Назва ачівки =
+    назва завдання
+  */
 
   achievementTitle.textContent =
     task.title;
 
 
-  // Показуємо повідомлення
+  /*
+    Опис ачівки =
+    перше речення опису
+  */
 
-  achievement.classList.add("show");
+  achievementDescription.textContent =
+    getFirstSentence(
+      task.description
+    );
 
 
-  // Програємо звук
+  /*
+    Нова випадкова картинка
+  */
+
+  achievementImage.src =
+    getRandomAchievementImage();
+
+
+  /*
+    Якщо картинка ще завантажується,
+    браузер не буде показувати
+    стару як нову.
+  */
+
+  achievementImage.alt =
+    task.title;
+
+
+  /*
+    Перезапускаємо звук
+  */
 
   achievementSound.currentTime = 0;
 
@@ -281,45 +440,39 @@ function showAchievement(task) {
     .catch(() => {
 
       console.log(
-        "Браузер заблокував звук"
+        "Не вдалося відтворити звук"
       );
 
     });
 
 
-  // Ховаємо через 5 секунд
+  /*
+    Показуємо ачівку
+  */
 
-  setTimeout(() => {
+  achievement.classList.add("show");
 
-    achievement.classList.remove("show");
 
-  }, 5000);
+  /*
+    Створюємо НОВИЙ таймер
+  */
+
+  achievementTimeout =
+    setTimeout(() => {
+
+      achievement.classList.remove(
+        "show"
+      );
+
+      achievementTimeout = null;
+
+    }, 5000);
 
 }
 
 
-// Кнопка
-
-addTaskButton.addEventListener(
-  "click",
-  addTask
-);
-
-
-// Enter у полі назви
-
-taskTitleInput.addEventListener(
-  "keydown",
-  event => {
-
-    if (event.key === "Enter") {
-      addTask();
-    }
-
-  }
-);
-
-
-// Початкове завантаження
+/* =========================
+   ПЕРШЕ ЗАВАНТАЖЕННЯ
+========================= */
 
 renderTasks();
