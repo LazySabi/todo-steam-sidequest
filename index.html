@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>My Todo List</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <main class="app">
+
+    <h1>My Todo List</h1>
+
+    <!-- Додавання завдання -->
+    <section class="add-task">
+
+      <input
+        type="text"
+        id="taskTitle"
+        placeholder="Назва завдання..."
+      />
+
+      <textarea
+        id="taskDescription"
+        placeholder="Опис завдання..."
+      ></textarea>
+
+      <button id="addTaskButton">
+        Додати завдання
+      </button>
+
+    </section>
+
+
+    <!-- Завдання в процесі -->
+    <section class="tasks-section">
+
+      <h2>В процесі</h2>
+
+      <div
+        id="activeTasks"
+        class="tasks-list"
+      ></div>
+
+    </section>
+
+
+    <!-- Виконані завдання -->
+    <section class="tasks-section completed-section">
+
+      <h2>Виконані</h2>
+
+      <div
+        id="completedTasks"
+        class="tasks-list"
+      ></div>
+
+    </section>
+
+  </main>
+
+
+  <!-- Повідомлення про виконання -->
+  <div id="achievement" class="achievement">
+
+    <img
+      id="achievementImage"
+      src=""
+      alt="Achievement"
+    />
+
+    <div class="achievement-text">
+
+      <span class="achievement-small">
+        ACHIEVEMENT UNLOCKED
+      </span>
+
+      <span id="achievementTitle">
+        Завдання виконано!
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <!-- Звук -->
+  <audio id="achievementSound">
+
+    <source
+      src="sounds/achievement.mp3"
+      type="audio/mpeg"
+    />
+
+  </audio>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>

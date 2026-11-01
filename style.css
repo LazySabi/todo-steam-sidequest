@@ -1,0 +1,388 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+
+  min-height: 100vh;
+
+  font-family: Arial, sans-serif;
+
+  background:
+    linear-gradient(
+      135deg,
+      #061b3a,
+      #0b3d70,
+      #082c57
+    );
+
+  color: white;
+}
+
+
+/* Головний контейнер */
+
+.app {
+  width: min(850px, 90%);
+
+  margin: 0 auto;
+
+  padding: 50px 0 100px;
+}
+
+
+h1 {
+  text-align: center;
+
+  margin-bottom: 40px;
+
+  font-size: 42px;
+
+  text-shadow:
+    0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+
+/* Блок додавання */
+
+.add-task {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 15px;
+
+  padding: 25px;
+
+  background: rgba(10, 35, 70, 0.8);
+
+  border: 2px solid white;
+
+  border-radius: 15px;
+
+  margin-bottom: 35px;
+}
+
+
+input,
+textarea {
+  width: 100%;
+
+  padding: 15px;
+
+  border: 2px solid white;
+
+  border-radius: 10px;
+
+  background: #0d3563;
+
+  color: white;
+
+  font-size: 16px;
+
+  outline: none;
+}
+
+
+input::placeholder,
+textarea::placeholder {
+  color: #b7cce6;
+}
+
+
+textarea {
+  min-height: 100px;
+
+  resize: vertical;
+}
+
+
+button {
+  padding: 14px;
+
+  border: 2px solid white;
+
+  border-radius: 10px;
+
+  background: #1769aa;
+
+  color: white;
+
+  font-size: 16px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+
+button:hover {
+  background: #2584cf;
+
+  transform: translateY(-2px);
+}
+
+
+/* Секції */
+
+.tasks-section {
+  margin-bottom: 30px;
+}
+
+
+.tasks-section h2 {
+  margin: 0 0 15px;
+
+  padding-left: 5px;
+
+  text-align: left;
+
+  font-size: 24px;
+}
+
+
+/* Контейнер списку */
+
+.tasks-list {
+  min-height: 80px;
+
+  padding: 15px;
+
+  background: rgba(5, 25, 55, 0.7);
+
+  border: 2px solid white;
+
+  border-radius: 15px;
+}
+
+
+/* Окреме завдання */
+
+.task {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: flex-start;
+
+  gap: 20px;
+
+  padding: 18px;
+
+  margin-bottom: 12px;
+
+  background: #114b82;
+
+  border: 2px solid white;
+
+  border-radius: 12px;
+
+  transition: 0.2s;
+}
+
+
+.task:last-child {
+  margin-bottom: 0;
+}
+
+
+.task:hover {
+  transform: scale(1.01);
+}
+
+
+.task-info {
+  flex: 1;
+}
+
+
+.task-title {
+  display: block;
+
+  font-size: 20px;
+
+  font-weight: bold;
+
+  margin-bottom: 8px;
+}
+
+
+.task-description {
+  color: #d0e4f7;
+
+  line-height: 1.4;
+
+  white-space: pre-wrap;
+}
+
+
+/* Галочка */
+
+.task-checkbox {
+  width: 26px;
+
+  height: 26px;
+
+  flex-shrink: 0;
+
+  cursor: pointer;
+
+  accent-color: #ffffff;
+
+  margin-top: 2px;
+}
+
+
+/* Виконані */
+
+.completed-section .task {
+  opacity: 0.7;
+
+  background: #173f66;
+}
+
+
+.completed-section .task-title {
+  text-decoration: line-through;
+}
+
+
+/* Steam-like achievement */
+
+.achievement {
+  position: fixed;
+
+  right: 25px;
+
+  bottom: 25px;
+
+  width: 360px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+
+  padding: 15px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #071526,
+      #123d65
+    );
+
+  border: 2px solid white;
+
+  border-radius: 8px;
+
+  box-shadow:
+    0 0 25px rgba(0, 0, 0, 0.6);
+
+  transform: translateX(450px);
+
+  opacity: 0;
+
+  transition:
+    transform 0.5s ease,
+    opacity 0.5s ease;
+
+  z-index: 1000;
+}
+
+
+.achievement.show {
+  transform: translateX(0);
+
+  opacity: 1;
+}
+
+
+/* Картинка ачівки */
+
+.achievement img {
+  width: 70px;
+
+  height: 70px;
+
+  object-fit: contain;
+
+  flex-shrink: 0;
+
+  border: 1px solid white;
+
+  border-radius: 5px;
+
+  background: #000;
+}
+
+
+.achievement-text {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 6px;
+}
+
+
+.achievement-small {
+  color: #6cc5ff;
+
+  font-size: 12px;
+
+  font-weight: bold;
+}
+
+
+#achievementTitle {
+  font-size: 18px;
+
+  font-weight: bold;
+}
+
+
+/* Телефони */
+
+@media (max-width: 600px) {
+
+  .app {
+    padding-top: 25px;
+  }
+
+
+  h1 {
+    font-size: 32px;
+  }
+
+
+  .achievement {
+    width: calc(100% - 30px);
+
+    right: 15px;
+
+    bottom: 15px;
+
+    transform: translateY(200px);
+  }
+
+
+  .achievement.show {
+    transform: translateY(0);
+  }
+
+}
+
+.empty-text {
+  text-align: center;
+
+  color: #b7cce6;
+
+  margin: 10px 0;
+
+  font-style: italic;
+}
